@@ -1,0 +1,3065 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        OA Screening Report
+    </title>
+
+    <!-- jsPDF for direct PDF download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <style>
+
+        :root {
+
+            --primary: #6336a8;
+            --primary-dark: #422273;
+            --primary-light: #8d5cc7;
+
+            --purple-bg: #f5f1fa;
+            --purple-soft: #eee7f8;
+            --purple-border: #ddd2ee;
+
+            --dark-purple: #171027;
+
+            --text-dark: #29223d;
+            --text-medium: #635b73;
+            --text-light: #968da5;
+
+            --green: #16803c;
+            --green-bg: #edf8f1;
+
+            --white: #ffffff;
+
+        }
+
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            color:
+                var(--text-dark);
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 0%,
+                    #e8ddf5 0%,
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    #eee5f8 0%,
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #f7f4fb,
+                    #eee9f5
+                );
+
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .top-bar {
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,0.95);
+
+            border-bottom:
+                1px solid
+                var(--purple-border);
+
+            padding:
+                14px 40px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .brand-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-light)
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .brand-text h3 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                16px;
+
+            margin-bottom:
+                2px;
+
+        }
+
+
+        .brand-text span {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .top-actions {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+        }
+
+
+        .action-btn {
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            background:
+                white;
+
+            color:
+                var(--primary-dark);
+
+            border-radius:
+                8px;
+
+            padding:
+                9px 14px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .action-btn:hover {
+
+            background:
+                var(--purple-soft);
+
+        }
+
+
+        .action-btn.primary {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            border:
+                none;
+
+            color:
+                white;
+
+        }
+
+
+        .action-btn.primary:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #351b5d,
+                    #733cb6
+                );
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main-wrapper {
+
+            max-width:
+                1050px;
+
+            margin:
+                0 auto;
+
+            padding:
+                38px 25px 60px;
+
+        }
+
+
+        /* =====================================================
+           REPORT HEADER
+        ===================================================== */
+
+        .report-header {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                18px;
+
+            padding:
+                30px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(56,36,80,0.07);
+
+            margin-bottom:
+                22px;
+
+        }
+
+
+        .report-header-top {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap:
+                20px;
+
+        }
+
+
+        .report-label {
+
+            display:
+                inline-block;
+
+            padding:
+                6px 12px;
+
+            background:
+                var(--purple-soft);
+
+            color:
+                var(--primary-dark);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                20px;
+
+            font-size:
+                10px;
+
+            font-weight:
+                bold;
+
+            letter-spacing:
+                0.6px;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        .report-header h1 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                30px;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .report-header p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .report-id {
+
+            text-align:
+                right;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+        /* =====================================================
+           WORKFLOW
+        ===================================================== */
+
+        .workflow {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                15px;
+
+            padding:
+                18px 22px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            margin-bottom:
+                22px;
+
+        }
+
+
+        .workflow-step {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            flex:
+                1;
+
+        }
+
+
+        .step-circle {
+
+            width:
+                39px;
+
+            height:
+                39px;
+
+            min-width:
+                39px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--purple-soft);
+
+            color:
+                var(--primary-dark);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                14px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .step-circle.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+        }
+
+
+        .step-text {
+
+            margin-left:
+                8px;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.2;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--text-medium);
+
+        }
+
+
+        .step-text.active {
+
+            color:
+                var(--primary-dark);
+
+        }
+
+
+        .workflow-line {
+
+            flex:
+                1;
+
+            height:
+                2px;
+
+            background:
+                #d5c9e5;
+
+            margin:
+                0 10px;
+
+        }
+
+
+        /* =====================================================
+           PATIENT CARD
+        ===================================================== */
+
+        .section-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                17px;
+
+            padding:
+                25px;
+
+            margin-bottom:
+                22px;
+
+            box-shadow:
+                0 8px 24px
+                rgba(56,36,80,0.05);
+
+        }
+
+
+        .section-heading {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                19px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .patient-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                13px;
+
+        }
+
+
+        .patient-item {
+
+            background:
+                var(--purple-bg);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                10px;
+
+            padding:
+                13px;
+
+        }
+
+
+        .patient-item span {
+
+            display:
+                block;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .patient-item strong {
+
+            color:
+                var(--text-dark);
+
+            font-size:
+                14px;
+
+        }
+
+
+        /* =====================================================
+           STATUS GRID
+        ===================================================== */
+
+        .status-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:
+                15px;
+
+        }
+
+
+        .status-card {
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                12px;
+
+            padding:
+                17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fbf9fd,
+                    #f5f0fa
+                );
+
+        }
+
+
+        .status-card span {
+
+            display:
+                block;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            margin-bottom:
+                7px;
+
+        }
+
+
+        .status-card strong {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                18px;
+
+        }
+
+
+        /* =====================================================
+           FEATURE TABLE
+        ===================================================== */
+
+        .feature-table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+        }
+
+
+        .feature-table th,
+        .feature-table td {
+
+            padding:
+                12px;
+
+            border-bottom:
+                1px solid
+                #eee8f4;
+
+            text-align:
+                left;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .feature-table th {
+
+            color:
+                var(--primary-dark);
+
+            background:
+                var(--purple-bg);
+
+            font-size:
+                11px;
+
+        }
+
+
+        .feature-table td {
+
+            color:
+                var(--text-medium);
+
+        }
+
+
+        .feature-table td.value {
+
+            color:
+                var(--primary-dark);
+
+            font-weight:
+                bold;
+
+        }
+
+
+        /* =====================================================
+           RESULT
+        ===================================================== */
+
+        .result-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #171027,
+                    #28163b
+                );
+
+            border-radius:
+                18px;
+
+            padding:
+                27px;
+
+            color:
+                white;
+
+            margin-bottom:
+                22px;
+
+        }
+
+
+        .result-top {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .result-top h2 {
+
+            font-size:
+                20px;
+
+        }
+
+
+        .demo-tag {
+
+            padding:
+                6px 10px;
+
+            border:
+                1px solid
+                rgba(213,185,235,0.18);
+
+            border-radius:
+                20px;
+
+            color:
+                #d6b9eb;
+
+            background:
+                rgba(213,185,235,0.09);
+
+            font-size:
+                10px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .result-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                16px;
+
+        }
+
+
+        .result-box {
+
+            padding:
+                18px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius:
+                12px;
+
+        }
+
+
+        .result-box span {
+
+            display:
+                block;
+
+            color:
+                #bcb2c9;
+
+            font-size:
+                10px;
+
+            margin-bottom:
+                7px;
+
+        }
+
+
+        .result-box strong {
+
+            color:
+                #d8b8ed;
+
+            font-size:
+                22px;
+
+        }
+
+
+        .result-box p {
+
+            color:
+                #c7bfce;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+
+            margin-top:
+                7px;
+
+        }
+
+
+        /* =====================================================
+           RECOMMENDATIONS
+        ===================================================== */
+
+        .recommendation-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:
+                15px;
+
+        }
+
+
+        .recommendation {
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                12px;
+
+            padding:
+                17px;
+
+            background:
+                var(--purple-bg);
+
+        }
+
+
+        .recommendation-number {
+
+            width:
+                31px;
+
+            height:
+                31px;
+
+            border-radius:
+                9px;
+
+            background:
+                var(--primary);
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            font-size:
+                11px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                12px;
+
+        }
+
+
+        .recommendation h3 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                14px;
+
+            margin-bottom:
+                6px;
+
+        }
+
+
+        .recommendation p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           DISCLAIMER
+        ===================================================== */
+
+        .disclaimer {
+
+            background:
+                #faf8fc;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                11px;
+
+            padding:
+                14px 16px;
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.5;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .disclaimer strong {
+
+            color:
+                var(--primary-dark);
+
+        }
+
+
+        /* =====================================================
+           BOTTOM ACTIONS
+        ===================================================== */
+
+        .bottom-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap:
+                12px;
+
+        }
+
+
+        .bottom-btn {
+
+            padding:
+                13px;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                9px;
+
+            background:
+                white;
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .bottom-btn:hover {
+
+            background:
+                var(--purple-soft);
+
+        }
+
+
+        .bottom-btn.primary {
+
+            border:
+                none;
+
+            color:
+                white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            text-align:
+                center;
+
+            margin-top:
+                24px;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /* =====================================================
+           PRINT
+        ===================================================== */
+
+        @media print {
+
+            body {
+
+                background:
+                    white;
+
+            }
+
+
+            .top-bar,
+            .workflow,
+            .bottom-actions {
+
+                display:
+                    none !important;
+
+            }
+
+
+            .main-wrapper {
+
+                max-width:
+                    none;
+
+                padding:
+                    0;
+
+            }
+
+
+            .section-card,
+            .report-header,
+            .result-card {
+
+                box-shadow:
+                    none;
+
+            }
+
+
+            .report-header,
+            .section-card,
+            .result-card {
+
+                break-inside:
+                    avoid;
+
+            }
+
+
+            .result-card {
+
+                color:
+                    black;
+
+                background:
+                    #f5f1fa;
+
+                border:
+                    1px solid
+                    #d8cbe6;
+
+            }
+
+
+            .result-top h2 {
+
+                color:
+                    #422273;
+
+            }
+
+
+            .result-box {
+
+                background:
+                    white;
+
+                border:
+                    1px solid
+                    #ddd2ee;
+
+            }
+
+
+            .result-box span {
+
+                color:
+                    #635b73;
+
+            }
+
+
+            .result-box strong {
+
+                color:
+                    #422273;
+
+            }
+
+
+            .result-box p {
+
+                color:
+                    #635b73;
+
+            }
+
+
+            .demo-tag {
+
+                color:
+                    #6336a8;
+
+                background:
+                    #eee7f8;
+
+                border:
+                    1px solid
+                    #ddd2ee;
+
+            }
+
+
+            .footer {
+
+                margin-top:
+                    15px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .patient-grid {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+
+            .status-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .recommendation-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .top-bar {
+
+                padding:
+                    13px 18px;
+
+            }
+
+
+            .brand-text {
+
+                display:
+                    none;
+
+            }
+
+
+            .top-actions {
+
+                width:
+                    100%;
+
+                justify-content:
+                    flex-end;
+
+            }
+
+
+            .main-wrapper {
+
+                padding:
+                    25px 15px 40px;
+
+            }
+
+
+            .report-header-top {
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .report-id {
+
+                text-align:
+                    left;
+
+            }
+
+
+            .patient-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .result-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .bottom-actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         TOP BAR
+    ===================================================== -->
+
+    <header class="top-bar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                OA
+            </div>
+
+
+            <div class="brand-text">
+
+                <h3>
+                    AI Healthcare Screening
+                </h3>
+
+                <span>
+                    North Eastern Region
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button
+                class="action-btn"
+                onclick="window.print()"
+            >
+                Print Report
+            </button>
+
+
+            <button
+                class="action-btn primary"
+                onclick="downloadPDF()"
+            >
+                Download PDF
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN REPORT
+    ===================================================== -->
+
+    <main class="main-wrapper">
+
+
+        <!-- REPORT HEADER -->
+
+        <section class="report-header">
+
+
+            <div class="report-header-top">
+
+
+                <div>
+
+                    <div class="report-label">
+                        OA SCREENING REPORT
+                    </div>
+
+
+                    <h1>
+                        Osteoarthritis Screening Report
+                    </h1>
+
+
+                    <p>
+                        AI-assisted preliminary screening summary
+                        based on patient information, wearable
+                        measurements and screening inputs.
+                    </p>
+
+                </div>
+
+
+                <div class="report-id">
+
+                    <strong>
+                        Report ID
+                    </strong>
+
+                    <br>
+
+                    <span id="reportId">
+                        OA-DEMO-001
+                    </span>
+
+                    <br><br>
+
+                    <span id="reportDate">
+                        -
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             WORKFLOW
+        ===================================================== -->
+
+        <div class="workflow">
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    1
+                </div>
+
+                <div class="step-text">
+                    Patient<br>
+                    Details
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    2
+                </div>
+
+                <div class="step-text">
+                    Wearable<br>
+                    Assessment
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    3
+                </div>
+
+                <div class="step-text">
+                    AI Risk<br>
+                    Analysis
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle active">
+                    4
+                </div>
+
+                <div class="step-text active">
+                    Screening<br>
+                    Report
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PATIENT INFORMATION
+        ===================================================== -->
+
+        <section class="section-card">
+
+
+            <h2 class="section-heading">
+                Patient Information
+            </h2>
+
+
+            <div class="patient-grid">
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Name
+                    </span>
+
+                    <strong id="patientName">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Age
+                    </span>
+
+                    <strong id="patientAge">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Height
+                    </span>
+
+                    <strong id="patientHeight">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Weight
+                    </span>
+
+                    <strong id="patientWeight">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SCREENING STATUS
+        ===================================================== -->
+
+        <section class="section-card">
+
+
+            <h2 class="section-heading">
+                Assessment Summary
+            </h2>
+
+
+            <div class="status-grid">
+
+
+                <div class="status-card">
+
+                    <span>
+                        Wearable System
+                    </span>
+
+                    <strong>
+                        Completed
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Sensor Signal
+                    </span>
+
+                    <strong>
+                        Good
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Screening Mode
+                    </span>
+
+                    <strong>
+                        Prototype
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             WEARABLE FEATURES
+        ===================================================== -->
+
+        <section class="section-card">
+
+
+            <h2 class="section-heading">
+                Wearable-Derived Measurements
+            </h2>
+
+
+            <table class="feature-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Feature
+                        </th>
+
+                        <th>
+                            Value
+                        </th>
+
+                        <th>
+                            Unit / Context
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            Peak Pressure
+                        </td>
+
+                        <td class="value">
+                            682
+                        </td>
+
+                        <td>
+                            ADC counts
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Mean Pressure
+                        </td>
+
+                        <td class="value">
+                            438
+                        </td>
+
+                        <td>
+                            ADC counts
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Pressure Balance
+                        </td>
+
+                        <td class="value">
+                            51 : 49
+                        </td>
+
+                        <td>
+                            Left / Right
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Gait Symmetry
+                        </td>
+
+                        <td class="value">
+                            96%
+                        </td>
+
+                        <td>
+                            Reference comparison
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Stance Time
+                        </td>
+
+                        <td class="value">
+                            0.72 s
+                        </td>
+
+                        <td>
+                            Average
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Step Duration
+                        </td>
+
+                        <td class="value">
+                            1.08 s
+                        </td>
+
+                        <td>
+                            Average
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SCREENING INPUTS
+        ===================================================== -->
+
+        <section class="section-card">
+
+
+            <h2 class="section-heading">
+                Patient-Reported Screening Inputs
+            </h2>
+
+
+            <div class="status-grid">
+
+
+                <div class="status-card">
+
+                    <span>
+                        Pain Score
+                    </span>
+
+                    <strong>
+                        1 / 10
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Mobility Score
+                    </span>
+
+                    <strong>
+                        9 / 10
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Medical History
+                    </span>
+
+                    <strong id="medicalHistory">
+                        Provided
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SCREENING RESULT
+        ===================================================== -->
+
+        <section class="result-card">
+
+
+            <div class="result-top">
+
+
+                <h2>
+                    Prototype Screening Summary
+                </h2>
+
+
+                <span class="demo-tag">
+                    DEMO / REFERENCE DATA
+                </span>
+
+
+            </div>
+
+
+            <div class="result-grid">
+
+
+                <div class="result-box">
+
+
+                    <span>
+                        Reference Pattern
+                    </span>
+
+
+                    <strong>
+                        Low-Risk Pattern
+                    </strong>
+
+
+                    <p>
+
+                        The displayed measurements are
+                        consistent with the healthy-reference
+                        scenario used for this prototype.
+
+                    </p>
+
+
+                </div>
+
+
+                <div class="result-box">
+
+
+                    <span>
+                        AI Pipeline
+                    </span>
+
+
+                    <strong>
+                        Model Integration Pending
+                    </strong>
+
+
+                    <p>
+
+                        The extracted features are structured
+                        for future input into the trained
+                        AI/ML screening classifier.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             RECOMMENDATIONS
+        ===================================================== -->
+
+        <section class="section-card">
+
+
+            <h2 class="section-heading">
+                Suggested Next Steps
+            </h2>
+
+
+            <div class="recommendation-grid">
+
+
+                <div class="recommendation">
+
+
+                    <div class="recommendation-number">
+                        01
+                    </div>
+
+
+                    <h3>
+                        Continue Monitoring
+                    </h3>
+
+
+                    <p>
+
+                        Maintain periodic screening,
+                        especially when new symptoms or
+                        mobility changes are observed.
+
+                    </p>
+
+
+                </div>
+
+
+                <div class="recommendation">
+
+
+                    <div class="recommendation-number">
+                        02
+                    </div>
+
+
+                    <h3>
+                        Joint Care
+                    </h3>
+
+
+                    <p>
+
+                        Encourage appropriate physical
+                        activity and healthy lifestyle
+                        practices.
+
+                    </p>
+
+
+                </div>
+
+
+                <div class="recommendation">
+
+
+                    <div class="recommendation-number">
+                        03
+                    </div>
+
+
+                    <h3>
+                        Clinical Follow-up
+                    </h3>
+
+
+                    <p>
+
+                        Seek evaluation by a qualified
+                        healthcare professional when
+                        persistent symptoms are present.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             DISCLAIMER
+        ===================================================== -->
+
+        <div class="disclaimer">
+
+            <strong>
+                Important:
+            </strong>
+
+            This interface represents a prototype screening
+            workflow. The measurements and screening summary
+            shown here are demonstration/reference values and
+            are not a clinical diagnosis. Final risk
+            classification should be based on a validated
+            model and appropriate clinical evaluation.
+
+        </div>
+
+
+
+        <!-- =====================================================
+             ACTION BUTTONS
+        ===================================================== -->
+
+        <div class="bottom-actions">
+
+
+            <button
+                class="bottom-btn"
+                onclick="window.location.href='risk-analysis.html'"
+            >
+
+                ← Back to Analysis
+
+            </button>
+
+
+            <button
+                class="bottom-btn"
+                onclick="window.print()"
+            >
+
+                Print Report
+
+            </button>
+
+
+            <button
+                class="bottom-btn primary"
+                onclick="downloadPDF()"
+            >
+
+                Download PDF
+
+            </button>
+
+
+        </div>
+
+
+
+        <div class="footer">
+
+            AI-Enabled Wearable System for Early Knee
+            Osteoarthritis Screening • Prototype Screening Report
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           LOAD PATIENT DATA
+        ===================================================== */
+
+        const savedData =
+            localStorage.getItem(
+                "patientData"
+            );
+
+
+        if (!savedData) {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        const patientData =
+            JSON.parse(
+                savedData
+            );
+
+
+        document.getElementById(
+            "patientName"
+        ).textContent =
+            patientData.name || "-";
+
+
+        document.getElementById(
+            "patientAge"
+        ).textContent =
+            patientData.age || "-";
+
+
+        document.getElementById(
+            "patientHeight"
+        ).textContent =
+            patientData.height
+                ? patientData.height + " cm"
+                : "-";
+
+
+        document.getElementById(
+            "patientWeight"
+        ).textContent =
+            patientData.weight
+                ? patientData.weight + " kg"
+                : "-";
+
+
+        if (
+            patientData.medicalHistory &&
+            patientData.medicalHistory.trim()
+        ) {
+
+            document.getElementById(
+                "medicalHistory"
+            ).textContent =
+                "Provided";
+
+        } else {
+
+            document.getElementById(
+                "medicalHistory"
+            ).textContent =
+                "Not provided";
+
+        }
+
+
+
+        /* =====================================================
+           REPORT DATE
+        ===================================================== */
+
+        const currentDate =
+            new Date();
+
+
+        document.getElementById(
+            "reportDate"
+        ).textContent =
+            currentDate.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+
+
+        /* =====================================================
+           REPORT ID
+        ===================================================== */
+
+        const reportId =
+            "OA-" +
+            Date.now()
+                .toString()
+                .slice(-8);
+
+
+        document.getElementById(
+            "reportId"
+        ).textContent =
+            reportId;
+
+
+
+        /* =====================================================
+           DOWNLOAD PDF
+        ===================================================== */
+
+        function downloadPDF() {
+
+
+            if (
+                typeof window.jspdf ===
+                "undefined"
+            ) {
+
+                alert(
+                    "PDF library could not be loaded. Please use Print Report and choose Save as PDF."
+                );
+
+                return;
+
+            }
+
+
+            const {
+                jsPDF
+            } = window.jspdf;
+
+
+            const pdf =
+                new jsPDF(
+                    "p",
+                    "mm",
+                    "a4"
+                );
+
+
+            const pageWidth =
+                pdf.internal.pageSize
+                    .getWidth();
+
+
+            let y = 18;
+
+
+            /* HEADER */
+
+            pdf.setFillColor(
+                66,
+                34,
+                115
+            );
+
+
+            pdf.rect(
+                0,
+                0,
+                pageWidth,
+                22,
+                "F"
+            );
+
+
+            pdf.setTextColor(
+                255,
+                255,
+                255
+            );
+
+
+            pdf.setFontSize(
+                16
+            );
+
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.text(
+                "Osteoarthritis Screening Report",
+                15,
+                14
+            );
+
+
+            y = 32;
+
+
+            /* PROJECT */
+
+            pdf.setTextColor(
+                66,
+                34,
+                115
+            );
+
+
+            pdf.setFontSize(
+                10
+            );
+
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.text(
+                "AI-Enabled Wearable System for Early Knee Osteoarthritis Screening",
+                15,
+                y
+            );
+
+
+            y += 10;
+
+
+            /* REPORT DETAILS */
+
+            pdf.setFontSize(
+                9
+            );
+
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+
+            pdf.setTextColor(
+                90,
+                84,
+                105
+            );
+
+
+            pdf.text(
+                "Report ID: " + reportId,
+                15,
+                y
+            );
+
+
+            pdf.text(
+                "Date: " +
+                currentDate.toLocaleDateString(
+                    "en-IN"
+                ),
+                140,
+                y
+            );
+
+
+            y += 14;
+
+
+            /* PATIENT */
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.setTextColor(
+                66,
+                34,
+                115
+            );
+
+
+            pdf.setFontSize(
+                12
+            );
+
+
+            pdf.text(
+                "Patient Information",
+                15,
+                y
+            );
+
+
+            y += 7;
+
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+
+            pdf.setFontSize(
+                9
+            );
+
+
+            pdf.setTextColor(
+                60,
+                55,
+                70
+            );
+
+
+            pdf.text(
+                "Name: " +
+                (patientData.name || "-"),
+                15,
+                y
+            );
+
+
+            pdf.text(
+                "Age: " +
+                (patientData.age || "-"),
+                100,
+                y
+            );
+
+
+            y += 6;
+
+
+            pdf.text(
+                "Height: " +
+                (
+                    patientData.height
+                        ? patientData.height + " cm"
+                        : "-"
+                ),
+                15,
+                y
+            );
+
+
+            pdf.text(
+                "Weight: " +
+                (
+                    patientData.weight
+                        ? patientData.weight + " kg"
+                        : "-"
+                ),
+                100,
+                y
+            );
+
+
+            y += 13;
+
+
+            /* SCREENING */
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.setFontSize(
+                12
+            );
+
+
+            pdf.setTextColor(
+                66,
+                34,
+                115
+            );
+
+
+            pdf.text(
+                "Wearable-Derived Measurements",
+                15,
+                y
+            );
+
+
+            y += 8;
+
+
+            const rows = [
+
+                [
+                    "Peak Pressure",
+                    "682 ADC"
+                ],
+
+                [
+                    "Mean Pressure",
+                    "438 ADC"
+                ],
+
+                [
+                    "Pressure Balance",
+                    "51 : 49"
+                ],
+
+                [
+                    "Gait Symmetry",
+                    "96%"
+                ],
+
+                [
+                    "Stance Time",
+                    "0.72 s"
+                ],
+
+                [
+                    "Step Duration",
+                    "1.08 s"
+                ]
+
+            ];
+
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+
+            pdf.setFontSize(
+                9
+            );
+
+
+            rows.forEach(
+                function(row) {
+
+                    pdf.setTextColor(
+                        70,
+                        65,
+                        80
+                    );
+
+
+                    pdf.text(
+                        row[0],
+                        15,
+                        y
+                    );
+
+
+                    pdf.setTextColor(
+                        66,
+                        34,
+                        115
+                    );
+
+
+                    pdf.setFont(
+                        "helvetica",
+                        "bold"
+                    );
+
+
+                    pdf.text(
+                        row[1],
+                        105,
+                        y
+                    );
+
+
+                    pdf.setFont(
+                        "helvetica",
+                        "normal"
+                    );
+
+
+                    y += 6;
+
+                }
+            );
+
+
+            y += 8;
+
+
+/* PATIENT INPUTS */
+
+pdf.setFont(
+    "helvetica",
+    "bold"
+);
+
+pdf.setTextColor(
+    66,
+    34,
+    115
+);
+
+pdf.setFontSize(
+    14
+);
+
+pdf.text(
+    "Patient-Reported Screening Inputs",
+    15,
+    y
+);
+
+y += 10;
+
+pdf.setFont(
+    "helvetica",
+    "normal"
+);
+
+pdf.setFontSize(
+    11
+);
+
+pdf.setTextColor(
+    70,
+    65,
+    80
+);
+
+pdf.text(
+    "Pain Score: 1 / 10",
+    15,
+    y
+);
+
+pdf.text(
+    "Mobility Score: 9 / 10",
+    105,
+    y
+);
+
+y += 10;
+
+
+/* PROTOTYPE OA RISK */
+
+const oaRisk = 32;
+
+pdf.setFont(
+    "helvetica",
+    "bold"
+);
+
+pdf.setFontSize(
+    12
+);
+
+pdf.setTextColor(
+    22,
+    128,
+    60
+);
+
+pdf.text(
+    "Prototype Estimated OA Risk: " + oaRisk + "%",
+    15,
+    y
+);
+
+y += 8;
+
+pdf.setFont(
+    "helvetica",
+    "bold"
+);
+
+pdf.setFontSize(
+    11
+);
+
+pdf.setTextColor(
+    22,
+    128,
+    60
+);
+
+pdf.text(
+    "No immediate clinical referral indicated based on this prototype screening.",
+    15,
+    y
+);
+
+y += 8;
+
+pdf.setFont(
+    "helvetica",
+    "normal"
+);
+
+pdf.setFontSize(
+    9
+);
+
+pdf.setTextColor(
+    100,
+    95,
+    110
+);
+
+pdf.text(
+    "Demo estimate only; not a validated clinical diagnosis.",
+    15,
+    y
+);
+
+y += 14;
+
+
+            /* RESULT */
+
+            pdf.setFillColor(
+                245,
+                241,
+                250
+            );
+
+
+            pdf.roundedRect(
+                15,
+                y,
+                pageWidth - 30,
+                40,
+                4,
+                4,
+                "F"
+            );
+
+
+            pdf.setTextColor(
+                66,
+                34,
+                115
+            );
+
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.setFontSize(
+                12
+            );
+
+
+            pdf.text(
+                "Prototype Screening Summary",
+                21,
+                y + 10
+            );
+
+
+            pdf.setFontSize(
+                11
+            );
+
+
+            pdf.text(
+                "Reference Pattern: Low-Risk Pattern",
+                21,
+                y + 20
+            );
+
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+
+            pdf.setFontSize(
+                8
+            );
+
+
+            pdf.setTextColor(
+                90,
+                84,
+                105
+            );
+
+
+            pdf.text(
+                "Demo/reference scenario - not a clinical diagnosis.",
+                21,
+                y + 29
+            );
+
+
+            y += 52;
+
+
+            /* RECOMMENDATIONS */
+
+            pdf.setFont(
+                "helvetica",
+                "bold"
+            );
+
+
+            pdf.setTextColor(
+                66,
+                34,
+                115
+            );
+
+
+            pdf.setFontSize(
+                12
+            );
+
+
+            pdf.text(
+                "Suggested Next Steps",
+                15,
+                y
+            );
+
+
+            y += 8;
+
+
+            pdf.setFont(
+                "helvetica",
+                "normal"
+            );
+
+
+            pdf.setFontSize(
+                9
+            );
+
+
+            pdf.setTextColor(
+                70,
+                65,
+                80
+            );
+
+
+            pdf.text(
+                "1. Continue periodic screening.",
+                15,
+                y
+            );
+
+
+            y += 6;
+
+
+            pdf.text(
+                "2. Encourage appropriate physical activity and joint-care practices.",
+                15,
+                y
+            );
+
+
+            y += 6;
+
+
+            pdf.text(
+                "3. Seek clinical evaluation when persistent symptoms are present.",
+                15,
+                y
+            );
+
+
+            y += 15;
+
+
+            pdf.setFontSize(
+                7
+            );
+
+
+            pdf.setTextColor(
+                120,
+                112,
+                130
+            );
+
+
+            pdf.text(
+                "This prototype report is intended for screening support and demonstration.",
+                15,
+                y
+            );
+
+
+            pdf.save(
+                "OA-Screening-Report.pdf"
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

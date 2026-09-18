@@ -1,0 +1,3319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        AI-Enabled Wearable System for Early Knee Osteoarthritis Screening
+    </title>
+
+
+    <style>
+
+        /* =====================================================
+           COLOR SYSTEM
+        ===================================================== */
+
+        :root {
+
+            --primary: #6336a8;
+            --primary-dark: #422273;
+            --primary-light: #8d5cc7;
+
+            --purple-bg: #f5f1fa;
+            --purple-soft: #eee7f8;
+            --purple-border: #ddd2ee;
+
+            --dark-purple: #171027;
+            --dark-purple-2: #211631;
+            --card-purple: #28203e;
+
+            --text-dark: #29223d;
+            --text-medium: #635b73;
+            --text-light: #968da5;
+
+            --white: #ffffff;
+
+            --success: #16803c;
+            --success-bg: #edf8f1;
+
+        }
+
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            color: var(--text-dark);
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 0%,
+                    #e8ddf5 0%,
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    #eee5f8 0%,
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #f7f4fb,
+                    #eee9f5
+                );
+
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .top-bar {
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,0.92);
+
+            border-bottom:
+                1px solid var(--purple-border);
+
+            padding:
+                14px 40px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            backdrop-filter:
+                blur(8px);
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items:
+                center;
+
+            gap: 12px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+            height: 42px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-light)
+                );
+
+            color:
+                white;
+
+            border-radius:
+                11px;
+
+            display: flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            font-weight:
+                bold;
+
+            font-size:
+                16px;
+
+            box-shadow:
+                0 5px 14px
+                rgba(99,54,168,0.23);
+
+        }
+
+
+        .brand-text h3 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                16px;
+
+            margin-bottom:
+                2px;
+
+        }
+
+
+        .brand-text span {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .status-area {
+
+            display: flex;
+
+            align-items:
+                center;
+
+            gap: 18px;
+
+        }
+
+
+        .offline-status {
+
+            display: flex;
+
+            align-items:
+                center;
+
+            gap: 7px;
+
+            color:
+                var(--success);
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+        }
+
+
+        .status-dot {
+
+            width: 8px;
+            height: 8px;
+
+            border-radius:
+                50%;
+
+            background:
+                #2da45f;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(45,164,95,0.10);
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main-wrapper {
+
+            max-width:
+                1150px;
+
+            margin:
+                0 auto;
+
+            padding:
+                42px 25px 60px;
+
+        }
+
+
+        /* =====================================================
+           PROJECT HEADER
+        ===================================================== */
+
+        .project-header {
+
+            text-align:
+                center;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .project-tag {
+
+            display:
+                inline-block;
+
+            padding:
+                7px 15px;
+
+            background:
+                var(--purple-soft);
+
+            color:
+                var(--primary-dark);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                20px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                bold;
+
+            letter-spacing:
+                0.5px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .project-header h1 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                36px;
+
+            line-height:
+                1.25;
+
+            max-width:
+                1050px;
+
+            margin:
+                0 auto;
+
+            letter-spacing:
+                -0.5px;
+
+        }
+
+
+        /* =====================================================
+           WORKFLOW
+        ===================================================== */
+
+        .workflow {
+
+            width:
+                100%;
+
+            background:
+                rgba(255,255,255,0.92);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                17px;
+
+            padding:
+                24px 28px;
+
+            margin-bottom:
+                30px;
+
+            box-shadow:
+                0 10px 28px
+                rgba(65,41,91,0.08);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+        }
+
+
+        .workflow-step {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            min-width:
+                0;
+
+        }
+
+
+        .step-circle {
+
+            width:
+                50px;
+
+            height:
+                50px;
+
+            min-width:
+                50px;
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+            font-size:
+                19px;
+
+            font-weight:
+                bold;
+
+            box-shadow:
+                0 6px 14px
+                rgba(99,54,168,0.23);
+
+        }
+
+
+        .step-text {
+
+            margin-left:
+                12px;
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                14px;
+
+            line-height:
+                1.3;
+
+            font-weight:
+                700;
+
+            max-width:
+                115px;
+
+        }
+
+
+        .workflow-line {
+
+            height:
+                3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #d3c5e5,
+                    #bda9d5
+                );
+
+            flex:
+                1;
+
+            margin:
+                0 18px;
+
+            border-radius:
+                5px;
+
+        }
+
+
+        /* =====================================================
+           FORM CARD
+        ===================================================== */
+
+        .form-card {
+
+            background:
+                rgba(255,255,255,0.97);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                18px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(56,36,80,0.08);
+
+            overflow:
+                hidden;
+
+            margin-bottom:
+                42px;
+
+        }
+
+
+        /* =====================================================
+           FORM HEADER
+        ===================================================== */
+
+        .form-card-header {
+
+            padding:
+                25px 30px 21px;
+
+            border-bottom:
+                1px solid
+                #eee8f4;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap:
+                20px;
+
+        }
+
+
+        .form-title h2 {
+
+            font-size:
+                25px;
+
+            color:
+                var(--primary-dark);
+
+            margin-bottom:
+                6px;
+
+        }
+
+
+        .form-title p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           LANGUAGE
+        ===================================================== */
+
+        .language-box select {
+
+            padding:
+                10px 13px;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                8px;
+
+            font-size:
+                13px;
+
+            background:
+                white;
+
+            color:
+                var(--text-dark);
+
+            outline:
+                none;
+
+            cursor:
+                pointer;
+
+            min-width:
+                155px;
+
+        }
+
+
+        .language-box select:hover {
+
+            border-color:
+                var(--primary-light);
+
+        }
+
+
+        .language-box select:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99,54,168,0.10);
+
+        }
+
+
+        /* =====================================================
+           FORM BODY
+        ===================================================== */
+
+        .form-body {
+
+            padding:
+                30px;
+
+        }
+
+
+        .form-section-title {
+
+            font-size:
+                12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.9px;
+
+            color:
+                var(--primary);
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .form-row {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                18px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .form-group label {
+
+            display:
+                block;
+
+            margin-bottom:
+                8px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--text-dark);
+
+        }
+
+
+        .required {
+
+            color:
+                #d83a3a;
+
+        }
+
+
+        .form-group input,
+        .form-group textarea {
+
+            width:
+                100%;
+
+            padding:
+                13px 14px;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                9px;
+
+            background:
+                white;
+
+            color:
+                var(--text-dark);
+
+            font-size:
+                14px;
+
+            outline:
+                none;
+
+            transition:
+                0.2s;
+
+        }
+
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+
+            border-color:
+                #bfaed3;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99,54,168,0.09);
+
+        }
+
+
+        .form-group textarea {
+
+            min-height:
+                110px;
+
+            resize:
+                vertical;
+
+        }
+
+
+        .form-hint {
+
+            margin-top:
+                6px;
+
+            font-size:
+                11px;
+
+            color:
+                var(--text-light);
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           FORM FOOTER
+        ===================================================== */
+
+        .form-footer {
+
+            padding:
+                20px 30px 25px;
+
+            border-top:
+                1px solid
+                #eee8f4;
+
+            background:
+                #faf8fc;
+
+        }
+
+
+        .save-btn {
+
+            width:
+                100%;
+
+            padding:
+                14px 18px;
+
+            border:
+                none;
+
+            border-radius:
+                9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+            font-size:
+                15px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+            transition:
+                0.2s;
+
+            box-shadow:
+                0 5px 14px
+                rgba(99,54,168,0.18);
+
+        }
+
+
+        .save-btn:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #351b5d,
+                    #733cb6
+                );
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 8px 18px
+                rgba(99,54,168,0.23);
+
+        }
+
+
+        .save-btn:active {
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .message {
+
+            margin-top:
+                12px;
+
+            padding:
+                10px;
+
+            text-align:
+                center;
+
+            color:
+                var(--success);
+
+            background:
+                var(--success-bg);
+
+            border:
+                1px solid
+                #d1eedb;
+
+            border-radius:
+                8px;
+
+            font-size:
+                13px;
+
+            display:
+                none;
+
+        }
+
+
+        /* =====================================================
+           HEALTHCARE SERVICE
+        ===================================================== */
+
+        .service-section {
+
+            margin-top:
+                8px;
+
+            padding:
+                30px;
+
+            border-radius:
+                21px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #140d24 0%,
+                    #1c1230 45%,
+                    #28163b 100%
+                );
+
+            color:
+                white;
+
+            box-shadow:
+                0 16px 38px
+                rgba(37,20,60,0.18);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+
+        }
+
+
+        .service-header {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                14px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .service-main-icon {
+
+            width:
+                52px;
+
+            height:
+                52px;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7650a9,
+                    #513178
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            font-size:
+                22px;
+
+            font-weight:
+                bold;
+
+            color:
+                white;
+
+            box-shadow:
+                0 6px 15px
+                rgba(0,0,0,0.18);
+
+        }
+
+
+        .service-header h2 {
+
+            font-size:
+                26px;
+
+            color:
+                white;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .service-header p {
+
+            color:
+                #c4b9d3;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           SERVICE CARDS
+        ===================================================== */
+
+        .service-cards {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                16px;
+
+        }
+
+
+        .service-item {
+
+            min-height:
+                190px;
+
+            padding:
+                21px;
+
+            border-radius:
+                15px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #27203f,
+                    #21182f
+                );
+
+            border:
+                1px solid
+                rgba(190,163,224,0.12);
+
+            transition:
+                0.2s;
+
+        }
+
+
+        .service-item:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                rgba(204,182,235,0.25);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,0,0,0.16);
+
+        }
+
+
+        .service-icon {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            border-radius:
+                10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dcabfa,
+                    #b976de
+                );
+
+            color:
+                #3b1756;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                12px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                20px;
+
+            box-shadow:
+                0 4px 9px
+                rgba(168,101,207,0.17);
+
+        }
+
+
+        .service-item h3 {
+
+            font-size:
+                17px;
+
+            color:
+                white;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .service-item p {
+
+            color:
+                #c5bfd0;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           DEPLOYMENT
+        ===================================================== */
+
+        .deployment-box {
+
+            margin-top:
+                18px;
+
+            padding:
+                16px;
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(168,123,202,0.09);
+
+            border:
+                1px solid
+                rgba(206,183,226,0.10);
+
+            color:
+                #c9c2d3;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .deployment-box strong {
+
+            color:
+                white;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            text-align:
+                center;
+
+            margin-top:
+                27px;
+
+            color:
+                #80768e;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .service-cards {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .top-bar {
+
+                padding:
+                    13px 18px;
+
+            }
+
+
+            .brand-text {
+
+                display:
+                    none;
+
+            }
+
+
+            .main-wrapper {
+
+                padding:
+                    28px 15px 40px;
+
+            }
+
+
+            .project-header h1 {
+
+                font-size:
+                    27px;
+
+                line-height:
+                    1.3;
+
+            }
+
+
+            .workflow {
+
+                padding:
+                    20px 16px;
+
+                overflow-x:
+                    auto;
+
+                justify-content:
+                    flex-start;
+
+            }
+
+
+            .workflow-step {
+
+                min-width:
+                    150px;
+
+            }
+
+
+            .step-circle {
+
+                width:
+                    44px;
+
+                height:
+                    44px;
+
+                min-width:
+                    44px;
+
+                font-size:
+                    17px;
+
+            }
+
+
+            .step-text {
+
+                font-size:
+                    12px;
+
+                max-width:
+                    90px;
+
+            }
+
+
+            .workflow-line {
+
+                min-width:
+                    35px;
+
+                margin:
+                    0 8px;
+
+            }
+
+
+            .form-card-header {
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .language-box {
+
+                width:
+                    100%;
+
+            }
+
+
+            .language-box select {
+
+                width:
+                    100%;
+
+            }
+
+
+            .form-body {
+
+                padding:
+                    23px;
+
+            }
+
+
+            .form-footer {
+
+                padding:
+                    18px 23px 23px;
+
+            }
+
+
+            .form-row {
+
+                grid-template-columns:
+                    1fr;
+
+                gap:
+                    0;
+
+            }
+
+
+            .service-section {
+
+                padding:
+                    23px;
+
+            }
+
+
+            .service-cards {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .project-header h1 {
+
+                font-size:
+                    23px;
+
+            }
+
+
+            .service-header h2 {
+
+                font-size:
+                    22px;
+
+            }
+
+
+            .service-item {
+
+                min-height:
+                    160px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         TOP BAR
+    ===================================================== -->
+
+    <header class="top-bar">
+
+
+        <div class="brand">
+
+
+            <div class="brand-icon">
+                OA
+            </div>
+
+
+            <div class="brand-text">
+
+                <h3>
+                    AI Healthcare Screening
+                </h3>
+
+                <span>
+                    North Eastern Region
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="status-area">
+
+
+            <div class="offline-status">
+
+                <span class="status-dot"></span>
+
+                Field Ready
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main-wrapper">
+
+
+        <!-- =================================================
+             PROJECT TITLE
+        ================================================= -->
+
+        <section class="project-header">
+
+
+            <div class="project-tag">
+
+                AI-ASSISTED HEALTHCARE • NER
+
+            </div>
+
+
+            <h1>
+
+                AI-Enabled Wearable System for
+                Early Knee Osteoarthritis Screening
+
+            </h1>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             WORKFLOW
+        ================================================= -->
+
+        <div class="workflow">
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    1
+                </div>
+
+                <div class="step-text">
+                    Patient<br>
+                    Details
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    2
+                </div>
+
+                <div class="step-text">
+                    Wearable<br>
+                    Assessment
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    3
+                </div>
+
+                <div class="step-text">
+                    AI Risk<br>
+                    Analysis
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    4
+                </div>
+
+                <div class="step-text">
+                    Screening<br>
+                    Report
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PATIENT FORM
+        ================================================= -->
+
+        <div class="form-card">
+
+
+            <div class="form-card-header">
+
+
+                <div class="form-title">
+
+                    <h2 id="title">
+
+                        Healthcare Service
+
+                    </h2>
+
+
+                    <p id="description">
+
+                        Enter patient details for early
+                        osteoarthritis assessment
+
+                    </p>
+
+                </div>
+
+
+                <div class="language-box">
+
+                    <select id="languageSelect">
+
+                        <option value="en">
+                            English
+                        </option>
+
+                        <option value="hi">
+                            हिन्दी
+                        </option>
+
+                        <option value="as">
+                            অসমীয়া
+                        </option>
+
+                        <option value="bn">
+                            বাংলা
+                        </option>
+
+                        <option value="brx">
+                            बड़ो
+                        </option>
+
+                        <option value="mni">
+                            মৈতৈলোন্
+                        </option>
+
+                        <option value="kha">
+                            Khasi
+                        </option>
+
+                        <option value="grt">
+                            Garo
+                        </option>
+
+                        <option value="lus">
+                            Mizo
+                        </option>
+
+                        <option value="kok">
+                            Kokborok
+                        </option>
+
+                        <option value="ne">
+                            नेपाली
+                        </option>
+
+                        <option value="sit">
+                            Sikkimese / Bhutia
+                        </option>
+
+                        <option value="lep">
+                            Lepcha
+                        </option>
+
+                        <option value="ao">
+                            Ao
+                        </option>
+
+                        <option value="anj">
+                            Angami
+                        </option>
+
+                        <option value="sm">
+                            Sumi
+                        </option>
+
+                        <option value="knk">
+                            Konyak
+                        </option>
+
+                        <option value="twu">
+                            Tangkhul
+                        </option>
+
+                        <option value="nsm">
+                            Nyishi
+                        </option>
+
+                        <option value="adi">
+                            Adi
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <form id="oaForm">
+
+
+                <div class="form-body">
+
+
+                    <div class="form-section-title">
+
+                        Patient Information
+
+                    </div>
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="name"
+                            id="nameLabel"
+                        >
+
+                            Name
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- AGE + HEIGHT -->
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label
+                                for="age"
+                                id="ageLabel"
+                            >
+
+                                Age
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="age"
+                                placeholder="Enter your age"
+                                min="1"
+                                max="120"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label
+                                for="height"
+                                id="heightLabel"
+                            >
+
+                                Height (cm)
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="height"
+                                placeholder="Enter height in cm"
+                                min="1"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- WEIGHT -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="weight"
+                            id="weightLabel"
+                        >
+
+                            Weight (kg)
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="weight"
+                            placeholder="Enter weight in kg"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- MEDICAL HISTORY -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="medicalHistory"
+                            id="medicalHistoryLabel"
+                        >
+
+                            Medical History
+
+                        </label>
+
+
+                        <textarea
+                            id="medicalHistory"
+                            placeholder="Enter relevant medical history..."
+                        ></textarea>
+
+
+                        <div class="form-hint">
+
+                            Include relevant joint pain,
+                            previous injuries, surgeries,
+                            arthritis history or other conditions.
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FORM FOOTER -->
+
+                <div class="form-footer">
+
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                        id="saveButton"
+                    >
+
+                        Save Patient Data
+
+                    </button>
+
+
+                    <div
+                        class="message"
+                        id="message"
+                    >
+
+                        Patient data saved successfully!
+
+                    </div>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             HEALTHCARE SERVICE
+        ================================================= -->
+
+        <section class="service-section">
+
+
+            <div class="service-header">
+
+
+                <div class="service-main-icon">
+                    +
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Healthcare Service
+                    </h2>
+
+
+                    <p>
+
+                        AI-assisted screening for early
+                        osteoarthritis risk assessment
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SERVICE CARDS -->
+
+            <div class="service-cards">
+
+
+                <div class="service-item">
+
+                    <div class="service-icon">
+                        01
+                    </div>
+
+
+                    <h3>
+                        Simple Screening
+                    </h3>
+
+
+                    <p>
+
+                        Easy patient registration and
+                        screening workflow for healthcare
+                        workers and rural health camps.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="service-item">
+
+                    <div class="service-icon">
+                        02
+                    </div>
+
+
+                    <h3>
+                        Wearable Assessment
+                    </h3>
+
+
+                    <p>
+
+                        Supports gait, posture, movement
+                        and pressure-based assessment
+                        using wearable sensors.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="service-item">
+
+                    <div class="service-icon">
+                        03
+                    </div>
+
+
+                    <h3>
+                        AI Risk Analysis
+                    </h3>
+
+
+                    <p>
+
+                        Patient and sensor data can be
+                        analysed to identify potential
+                        OA risk markers.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="service-item">
+
+                    <div class="service-icon">
+                        04
+                    </div>
+
+
+                    <h3>
+                        Field Ready
+                    </h3>
+
+
+                    <p>
+
+                        Designed for multilingual,
+                        low-connectivity and remote
+                        healthcare environments.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- DEPLOYMENT -->
+
+            <div class="deployment-box">
+
+                <strong>
+                    Field deployment:
+                </strong>
+
+                Patient information can be captured locally
+                and synchronized when connectivity becomes
+                available.
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================= -->
+
+        <div class="footer">
+
+            AI-assisted screening support • For preliminary
+            risk assessment and healthcare-worker decision support
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        const translations = {
+
+
+            /* ================= ENGLISH ================= */
+
+            en: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Enter patient details for early osteoarthritis assessment",
+
+                name:
+                    "Name",
+
+                namePlaceholder:
+                    "Enter your name",
+
+                age:
+                    "Age",
+
+                agePlaceholder:
+                    "Enter your age",
+
+                height:
+                    "Height (cm)",
+
+                heightPlaceholder:
+                    "Enter height in cm",
+
+                weight:
+                    "Weight (kg)",
+
+                weightPlaceholder:
+                    "Enter weight in kg",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Enter relevant medical history...",
+
+                save:
+                    "Save Patient Data",
+
+                success:
+                    "Patient data saved successfully!"
+
+            },
+
+
+            /* ================= HINDI ================= */
+
+            hi: {
+
+                title:
+                    "स्वास्थ्य सेवा",
+
+                description:
+                    "प्रारंभिक ऑस्टियोआर्थराइटिस मूल्यांकन के लिए रोगी का विवरण दर्ज करें",
+
+                name:
+                    "नाम",
+
+                namePlaceholder:
+                    "अपना नाम दर्ज करें",
+
+                age:
+                    "आयु",
+
+                agePlaceholder:
+                    "अपनी आयु दर्ज करें",
+
+                height:
+                    "ऊंचाई (सेमी)",
+
+                heightPlaceholder:
+                    "ऊंचाई सेमी में दर्ज करें",
+
+                weight:
+                    "वजन (किग्रा)",
+
+                weightPlaceholder:
+                    "वजन किग्रा में दर्ज करें",
+
+                medicalHistory:
+                    "चिकित्सा इतिहास",
+
+                medicalHistoryPlaceholder:
+                    "प्रासंगिक चिकित्सा इतिहास दर्ज करें...",
+
+                save:
+                    "रोगी का डेटा सेव करें",
+
+                success:
+                    "रोगी का डेटा सफलतापूर्वक सेव हो गया!"
+
+            },
+
+
+            /* ================= ASSAMESE ================= */
+
+            as: {
+
+                title:
+                    "স্বাস্থ্য সেৱা",
+
+                description:
+                    "আগতীয়া অষ্টিঅ’আৰ্থ্ৰাইটিছ মূল্যায়নৰ বাবে ৰোগীৰ তথ্য দিয়ক",
+
+                name:
+                    "নাম",
+
+                namePlaceholder:
+                    "আপোনাৰ নাম দিয়ক",
+
+                age:
+                    "বয়স",
+
+                agePlaceholder:
+                    "আপোনাৰ বয়স দিয়ক",
+
+                height:
+                    "উচ্চতা (ছেমি)",
+
+                heightPlaceholder:
+                    "উচ্চতা ছেমিত দিয়ক",
+
+                weight:
+                    "ওজন (কেজি)",
+
+                weightPlaceholder:
+                    "ওজন কেজিত দিয়ক",
+
+                medicalHistory:
+                    "চিকিৎসা ইতিহাস",
+
+                medicalHistoryPlaceholder:
+                    "প্ৰাসংগিক চিকিৎসা ইতিহাস দিয়ক...",
+
+                save:
+                    "ৰোগীৰ তথ্য সংৰক্ষণ কৰক",
+
+                success:
+                    "ৰোগীৰ তথ্য সফলভাৱে সংৰক্ষণ কৰা হ'ল!"
+
+            },
+
+
+            /* ================= BENGALI ================= */
+
+            bn: {
+
+                title:
+                    "স্বাস্থ্যসেবা",
+
+                description:
+                    "প্রাথমিক অস্টিওআর্থারাইটিস মূল্যায়নের জন্য রোগীর তথ্য দিন",
+
+                name:
+                    "নাম",
+
+                namePlaceholder:
+                    "আপনার নাম লিখুন",
+
+                age:
+                    "বয়স",
+
+                agePlaceholder:
+                    "আপনার বয়স লিখুন",
+
+                height:
+                    "উচ্চতা (সেমি)",
+
+                heightPlaceholder:
+                    "উচ্চতা সেমিতে লিখুন",
+
+                weight:
+                    "ওজন (কেজি)",
+
+                weightPlaceholder:
+                    "ওজন কেজিতে লিখুন",
+
+                medicalHistory:
+                    "চিকিৎসার ইতিহাস",
+
+                medicalHistoryPlaceholder:
+                    "প্রাসঙ্গিক চিকিৎসার ইতিহাস লিখুন...",
+
+                save:
+                    "রোগীর তথ্য সংরক্ষণ করুন",
+
+                success:
+                    "রোগীর তথ্য সফলভাবে সংরক্ষণ করা হয়েছে!"
+
+            },
+
+
+            /* ================= BODO ================= */
+
+            brx: {
+
+                title:
+                    "सावार सेवा",
+
+                description:
+                    "रोगीनि फोरोंथि हो आरो गिबि ओस्टियोआर्थराइटिस मुल्यायन खालाम",
+
+                name:
+                    "मुं",
+
+                namePlaceholder:
+                    "नोंथांनि मुं हो",
+
+                age:
+                    "बयस",
+
+                agePlaceholder:
+                    "नोंथांनि बयस हो",
+
+                height:
+                    "गोजौथाय (सेमि)",
+
+                heightPlaceholder:
+                    "गोजौथाय हो",
+
+                weight:
+                    "फिसा (किग्रा)",
+
+                weightPlaceholder:
+                    "फिसा हो",
+
+                medicalHistory:
+                    "साबाइनि इतिहास",
+
+                medicalHistoryPlaceholder:
+                    "साबाइनि इतिहास हो...",
+
+                save:
+                    "डेटा सहेब",
+
+                success:
+                    "डेटा सहेब जाफुंस्रि!"
+
+            },
+
+
+            /* ================= MEITEI ================= */
+
+            mni: {
+
+                title:
+                    "ꯍꯦꯜꯊ ꯁꯔꯕꯤꯁ",
+
+                description:
+                    "ꯑꯣꯁꯇꯤꯑꯣꯑꯥꯊꯔꯥꯏꯇꯤꯁꯀꯤ ꯑꯍꯥꯟꯕ ꯑꯦꯁꯦꯁꯃꯦꯟꯇꯒꯤ ꯃꯊꯧ ꯉꯥꯛꯄ",
+
+                name:
+                    "ꯃꯃ",
+
+                namePlaceholder:
+                    "ꯅꯪꯒꯤ ꯃꯃ ꯂꯤꯕꯤꯌꯨ",
+
+                age:
+                    "ꯆꯍꯤ",
+
+                agePlaceholder:
+                    "ꯅꯪꯒꯤ ꯆꯍꯤ ꯂꯤꯕꯤꯌꯨ",
+
+                height:
+                    "ꯑꯋꯥꯡ (cm)",
+
+                heightPlaceholder:
+                    "ꯑꯋꯥꯡ ꯂꯤꯕꯤꯌꯨ",
+
+                weight:
+                    "ꯂꯨꯄ (kg)",
+
+                weightPlaceholder:
+                    "ꯂꯨꯄ ꯂꯤꯕꯤꯌꯨ",
+
+                medicalHistory:
+                    "ꯆꯤꯀꯤꯠꯁꯤꯒꯤ ꯍꯤꯁꯇꯣꯔꯤ",
+
+                medicalHistoryPlaceholder:
+                    "ꯆꯤꯀꯤꯠꯁꯤꯒꯤ ꯍꯤꯁꯇꯣꯔꯤ ꯂꯤꯕꯤꯌꯨ...",
+
+                save:
+                    "ꯗꯦꯇꯥ ꯁꯦꯕ",
+
+                success:
+                    "ꯗꯦꯇꯥ ꯁꯦꯕ ꯑꯣꯏꯔꯦ!"
+
+            },
+
+
+            /* ================= KHASI ================= */
+
+            kha: {
+
+                title:
+                    "Ka Jingpynshah Jong Ka Koit Ka Khiah",
+
+                description:
+                    "Thoh ia ki jingtip jong ka nongpang na bynta ka jingpeit lypa",
+
+                name:
+                    "Kyrteng",
+
+                namePlaceholder:
+                    "Thoh ia ka kyrteng",
+
+                age:
+                    "Ka rta",
+
+                agePlaceholder:
+                    "Thoh ia ka rta",
+
+                height:
+                    "Ka jingjrong (cm)",
+
+                heightPlaceholder:
+                    "Thoh ia ka jingjrong",
+
+                weight:
+                    "Ka jingkhia (kg)",
+
+                weightPlaceholder:
+                    "Thoh ia ka jingkhia",
+
+                medicalHistory:
+                    "Ka histori jong ka koit ka khiah",
+
+                medicalHistoryPlaceholder:
+                    "Thoh ia ka histori jong ka koit ka khiah...",
+
+                save:
+                    "Tyngkai ia ka data",
+
+                success:
+                    "La tyngkai bha ia ka data!"
+
+            },
+
+
+            /* ================= GARO ================= */
+
+            grt: {
+
+                title:
+                    "Health Care Service",
+
+                description:
+                    "Osteoarthritis ko skanggipa dake nieanina gimin patient ni detaldade on·bo",
+
+                name:
+                    "Ming",
+
+                namePlaceholder:
+                    "Nangni mingko on·bo",
+
+                age:
+                    "Bilsi",
+
+                agePlaceholder:
+                    "Nangni bilsiko on·bo",
+
+                height:
+                    "Chring (cm)",
+
+                heightPlaceholder:
+                    "Chringko cm-o on·bo",
+
+                weight:
+                    "Bari (kg)",
+
+                weightPlaceholder:
+                    "Bariko kg-o on·bo",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history-ko on·bo...",
+
+                save:
+                    "Data-ko Save Ka·bo",
+
+                success:
+                    "Data namen save ka·aha!"
+
+            },
+
+
+            /* ================= MIZO ================= */
+
+            lus: {
+
+                title:
+                    "Health Care Service",
+
+                description:
+                    "Osteoarthritis hmaisa taka en dan atan patient details dah la",
+
+                name:
+                    "Hming",
+
+                namePlaceholder:
+                    "I hming ziak rawh",
+
+                age:
+                    "Kum",
+
+                agePlaceholder:
+                    "I kum ziak rawh",
+
+                height:
+                    "San (cm)",
+
+                heightPlaceholder:
+                    "San cm-in ziak rawh",
+
+                weight:
+                    "Puar (kg)",
+
+                weightPlaceholder:
+                    "Puar kg-in ziak rawh",
+
+                medicalHistory:
+                    "Damdawi Lailakna",
+
+                medicalHistoryPlaceholder:
+                    "Medical history ziak rawh...",
+
+                save:
+                    "Data Save rawh",
+
+                success:
+                    "Data chu tha takin save a ni!"
+
+            },
+
+
+            /* ================= KOKBOROK ================= */
+
+            kok: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Osteoarthritis-ni aghan janya rogini borokha datos khobor di",
+
+                name:
+                    "Mung",
+
+                namePlaceholder:
+                    "Nwngni mung di",
+
+                age:
+                    "Bwsor",
+
+                agePlaceholder:
+                    "Nwngni bwsor di",
+
+                height:
+                    "Jung (cm)",
+
+                heightPlaceholder:
+                    "Jung cm-o di",
+
+                weight:
+                    "Kham (kg)",
+
+                weightPlaceholder:
+                    "Kham kg-o di",
+
+                medicalHistory:
+                    "Chikitsa Itihas",
+
+                medicalHistoryPlaceholder:
+                    "Medical history di...",
+
+                save:
+                    "Data Save Khwlwi",
+
+                success:
+                    "Data phai phainai save khwlwi!"
+
+            },
+
+
+            /* ================= NEPALI ================= */
+
+            ne: {
+
+                title:
+                    "स्वास्थ्य सेवा",
+
+                description:
+                    "प्रारम्भिक अस्टियोआर्थराइटिस मूल्याङ्कनका लागि बिरामीको विवरण भर्नुहोस्",
+
+                name:
+                    "नाम",
+
+                namePlaceholder:
+                    "आफ्नो नाम लेख्नुहोस्",
+
+                age:
+                    "उमेर",
+
+                agePlaceholder:
+                    "आफ्नो उमेर लेख्नुहोस्",
+
+                height:
+                    "उचाइ (सेमी)",
+
+                heightPlaceholder:
+                    "उचाइ सेमीमा लेख्नुहोस्",
+
+                weight:
+                    "तौल (केजी)",
+
+                weightPlaceholder:
+                    "तौल केजीमा लेख्नुहोस्",
+
+                medicalHistory:
+                    "चिकित्सा इतिहास",
+
+                medicalHistoryPlaceholder:
+                    "सम्बन्धित चिकित्सा इतिहास लेख्नुहोस्...",
+
+                save:
+                    "डाटा सुरक्षित गर्नुहोस्",
+
+                success:
+                    "डाटा सफलतापूर्वक सुरक्षित भयो!"
+
+            },
+
+
+            /* ================= SIKKIMESE / BHUTIA ================= */
+
+            sit: {
+
+                title:
+                    "གསོ་བའི་ཞབས་ཞུ།",
+
+                description:
+                    "སྔོན་འགྲོའི་ཨོ་ཨེ་དཔྱད་ཞིབ་ཀྱི་ཆེད་དུ་ནད་པའི་གནས་ཚུལ་བཀོད།",
+
+                name:
+                    "མིང་།",
+
+                namePlaceholder:
+                    "ཁྱེད་རང་གི་མིང་བཀོད།",
+
+                age:
+                    "ལོ།",
+
+                agePlaceholder:
+                    "ཁྱེད་རང་གི་ལོ་ཚོད་བཀོད།",
+
+                height:
+                    "མཐོ་ཚད (cm)",
+
+                heightPlaceholder:
+                    "མཐོ་ཚད་བཀོད།",
+
+                weight:
+                    "ལྗིད་ཚད (kg)",
+
+                weightPlaceholder:
+                    "ལྗིད་ཚད་བཀོད།",
+
+                medicalHistory:
+                    "སྨན་བཅོས་ཀྱི་ལོ་རྒྱུས།",
+
+                medicalHistoryPlaceholder:
+                    "སྨན་བཅོས་ཀྱི་ལོ་རྒྱུས་བཀོད...",
+
+                save:
+                    "གནས་ཚུལ་ཉར།",
+
+                success:
+                    "གནས་ཚུལ་ལེགས་པར་ཉར་ཟིན!"
+
+            },
+
+
+            /* ================= LEPCHA ================= */
+
+            lep: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Patient details for early OA risk screening",
+
+                name:
+                    "ᰃᰩᰬ",
+
+                namePlaceholder:
+                    "ᰌᰣᰬᰶ ᰃᰩᰬ ᰕᰣᰬᰶ",
+
+                age:
+                    "ᰜᰣᰬᰵ",
+
+                agePlaceholder:
+                    "ᰜᰣᰬᰵ ᰕᰣᰬᰶ",
+
+                height:
+                    "Height (cm)",
+
+                heightPlaceholder:
+                    "Height ᰕᰣᰬᰶ",
+
+                weight:
+                    "Weight (kg)",
+
+                weightPlaceholder:
+                    "Weight ᰕᰣᰬᰶ",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history ᰕᰣᰬᰶ...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save ᰠᰩᰬᰶ!"
+
+            },
+
+
+            /* ================= AO ================= */
+
+            ao: {
+
+                title:
+                    "Health Care Service",
+
+                description:
+                    "Osteoarthritis tanütsü atara patient detail tetshü",
+
+                name:
+                    "Mung",
+
+                namePlaceholder:
+                    "Nüru mung tetshü",
+
+                age:
+                    "Kokru",
+
+                agePlaceholder:
+                    "Nüru kokru tetshü",
+
+                height:
+                    "Tsükte (cm)",
+
+                heightPlaceholder:
+                    "Tsükte tetshü",
+
+                weight:
+                    "Tsendang (kg)",
+
+                weightPlaceholder:
+                    "Tsendang tetshü",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history tetshü...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data sütsüi save!"
+
+            },
+
+
+            /* ================= ANGAMI ================= */
+
+            anj: {
+
+                title:
+                    "Health Care Service",
+
+                description:
+                    "Osteoarthritis kenei kezhüva patient detala kenei",
+
+                name:
+                    "Khrü",
+
+                namePlaceholder:
+                    "Ni khrü kerü",
+
+                age:
+                    "Kro",
+
+                agePlaceholder:
+                    "Ni kro kerü",
+
+                height:
+                    "Terü (cm)",
+
+                heightPlaceholder:
+                    "Terü kerü",
+
+                weight:
+                    "Khrüvi (kg)",
+
+                weightPlaceholder:
+                    "Khrüvi kerü",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history kerü...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save kemhi!"
+
+            },
+
+
+            /* ================= SUMI ================= */
+
+            sm: {
+
+                title:
+                    "Health Care Service",
+
+                description:
+                    "Osteoarthritis hmaisa kiyeda patient detala zü",
+
+                name:
+                    "Müghu",
+
+                namePlaceholder:
+                    "Nü müghu zü",
+
+                age:
+                    "Sü",
+
+                agePlaceholder:
+                    "Nü sü zü",
+
+                height:
+                    "Atsa (cm)",
+
+                heightPlaceholder:
+                    "Atsa zü",
+
+                weight:
+                    "Kiphu (kg)",
+
+                weightPlaceholder:
+                    "Kiphu zü",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history zü...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save!"
+
+            },
+
+
+            /* ================= KONYAK ================= */
+
+            knk: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Osteoarthritis nokthong tephui ha patient ni detail yong",
+
+                name:
+                    "Ming",
+
+                namePlaceholder:
+                    "Na ming yong",
+
+                age:
+                    "Jai",
+
+                agePlaceholder:
+                    "Na jai yong",
+
+                height:
+                    "Height (cm)",
+
+                heightPlaceholder:
+                    "Height yong",
+
+                weight:
+                    "Weight (kg)",
+
+                weightPlaceholder:
+                    "Weight yong",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history yong...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save lai!"
+
+            },
+
+
+            /* ================= TANGKHUL ================= */
+
+            twu: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Osteoarthritis matamdagi pukhatna patient details piru",
+
+                name:
+                    "Ming",
+
+                namePlaceholder:
+                    "Na ming piru",
+
+                age:
+                    "Khangai",
+
+                agePlaceholder:
+                    "Na khangai piru",
+
+                height:
+                    "Thang (cm)",
+
+                heightPlaceholder:
+                    "Thang cm-da piru",
+
+                weight:
+                    "Lam (kg)",
+
+                weightPlaceholder:
+                    "Lam kg-da piru",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history piru...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save taru!"
+
+            },
+
+
+            /* ================= NYISHI ================= */
+
+            nsm: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Osteoarthritis chukha donyi lagum patient details nang",
+
+                name:
+                    "Aji",
+
+                namePlaceholder:
+                    "Aji nang",
+
+                age:
+                    "Ayi",
+
+                agePlaceholder:
+                    "Ayi nang",
+
+                height:
+                    "Talo (cm)",
+
+                heightPlaceholder:
+                    "Talo nang",
+
+                weight:
+                    "Abo (kg)",
+
+                weightPlaceholder:
+                    "Abo nang",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history nang...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save nang!"
+
+            },
+
+
+            /* ================= ADI ================= */
+
+            adi: {
+
+                title:
+                    "Healthcare Service",
+
+                description:
+                    "Osteoarthritis aro kene-gi patient details bi",
+
+                name:
+                    "Ming",
+
+                namePlaceholder:
+                    "Nang ming bi",
+
+                age:
+                    "Sirang",
+
+                agePlaceholder:
+                    "Nang sirang bi",
+
+                height:
+                    "Ari (cm)",
+
+                heightPlaceholder:
+                    "Ari bi",
+
+                weight:
+                    "Abo (kg)",
+
+                weightPlaceholder:
+                    "Abo bi",
+
+                medicalHistory:
+                    "Medical History",
+
+                medicalHistoryPlaceholder:
+                    "Medical history bi...",
+
+                save:
+                    "Data Save",
+
+                success:
+                    "Data save peko!"
+
+            }
+
+        };
+
+
+        /* =====================================================
+           LANGUAGE SWITCHING
+        ===================================================== */
+
+        const languageSelect =
+            document.getElementById(
+                "languageSelect"
+            );
+
+
+        languageSelect.addEventListener(
+            "change",
+            function () {
+
+
+                const language =
+                    languageSelect.value;
+
+
+                const text =
+                    translations[language];
+
+
+                document.getElementById(
+                    "title"
+                ).textContent =
+                    text.title;
+
+
+                document.getElementById(
+                    "description"
+                ).textContent =
+                    text.description;
+
+
+                document.getElementById(
+                    "nameLabel"
+                ).innerHTML =
+                    text.name +
+                    ' <span class="required">*</span>';
+
+
+                document.getElementById(
+                    "name"
+                ).placeholder =
+                    text.namePlaceholder;
+
+
+                document.getElementById(
+                    "ageLabel"
+                ).innerHTML =
+                    text.age +
+                    ' <span class="required">*</span>';
+
+
+                document.getElementById(
+                    "age"
+                ).placeholder =
+                    text.agePlaceholder;
+
+
+                document.getElementById(
+                    "heightLabel"
+                ).innerHTML =
+                    text.height +
+                    ' <span class="required">*</span>';
+
+
+                document.getElementById(
+                    "height"
+                ).placeholder =
+                    text.heightPlaceholder;
+
+
+                document.getElementById(
+                    "weightLabel"
+                ).innerHTML =
+                    text.weight +
+                    ' <span class="required">*</span>';
+
+
+                document.getElementById(
+                    "weight"
+                ).placeholder =
+                    text.weightPlaceholder;
+
+
+                document.getElementById(
+                    "medicalHistoryLabel"
+                ).textContent =
+                    text.medicalHistory;
+
+
+                document.getElementById(
+                    "medicalHistory"
+                ).placeholder =
+                    text.medicalHistoryPlaceholder;
+
+
+                document.getElementById(
+                    "saveButton"
+                ).textContent =
+                    text.save;
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    text.success;
+
+
+                document.documentElement.lang =
+                    language;
+
+            }
+        );
+
+
+        /* =====================================================
+           FORM SUBMISSION
+        ===================================================== */
+
+        const form =
+            document.getElementById(
+                "oaForm"
+            );
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const age =
+        document.getElementById("age").value;
+
+    const height =
+        document.getElementById("height").value;
+
+    const weight =
+        document.getElementById("weight").value;
+
+    const medicalHistory =
+        document.getElementById("medicalHistory").value.trim();
+
+
+    if (!name || !age || !height || !weight) {
+        return;
+    }
+
+
+    const patientData = {
+        name,
+        age,
+        height,
+        weight,
+        medicalHistory
+    };
+
+
+    localStorage.setItem(
+        "patientData",
+        JSON.stringify(patientData)
+    );
+
+
+    window.location.href = "wearable.html";
+
+});
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Risk Analysis
+    </title>
+
+
+    <style>
+
+        :root {
+
+            --primary: #6336a8;
+            --primary-dark: #422273;
+            --primary-light: #8d5cc7;
+
+            --purple-bg: #f5f1fa;
+            --purple-soft: #eee7f8;
+            --purple-border: #ddd2ee;
+
+            --dark-purple: #171027;
+            --dark-purple-2: #211631;
+
+            --text-dark: #29223d;
+            --text-medium: #635b73;
+            --text-light: #968da5;
+
+            --white: #ffffff;
+
+            --green: #16803c;
+            --green-bg: #edf8f1;
+
+        }
+
+
+        * {
+
+            box-sizing:
+                border-box;
+
+            margin:
+                0;
+
+            padding:
+                0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        body {
+
+            min-height:
+                100vh;
+
+            color:
+                var(--text-dark);
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 0%,
+                    #e8ddf5 0%,
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    #eee5f8 0%,
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #f7f4fb,
+                    #eee9f5
+                );
+
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .top-bar {
+
+            width:
+                100%;
+
+            background:
+                rgba(255,255,255,0.94);
+
+            border-bottom:
+                1px solid
+                var(--purple-border);
+
+            padding:
+                14px 40px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .brand-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-light)
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .brand-text h3 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                16px;
+
+            margin-bottom:
+                2px;
+
+        }
+
+
+        .brand-text span {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .back-btn {
+
+            padding:
+                9px 15px;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                8px;
+
+            background:
+                white;
+
+            color:
+                var(--primary-dark);
+
+            cursor:
+                pointer;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .back-btn:hover {
+
+            background:
+                var(--purple-soft);
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main-wrapper {
+
+            max-width:
+                1150px;
+
+            margin:
+                0 auto;
+
+            padding:
+                40px 25px 60px;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .page-header {
+
+            text-align:
+                center;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .page-tag {
+
+            display:
+                inline-block;
+
+            padding:
+                7px 15px;
+
+            background:
+                var(--purple-soft);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                20px;
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                12px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                14px;
+
+        }
+
+
+        .page-header h1 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                34px;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        .page-header p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                14px;
+
+            line-height:
+                1.6;
+
+            max-width:
+                760px;
+
+            margin:
+                0 auto;
+
+        }
+
+
+        /* =====================================================
+           WORKFLOW
+        ===================================================== */
+
+        .workflow {
+
+            width:
+                100%;
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                17px;
+
+            padding:
+                22px 25px;
+
+            margin-bottom:
+                30px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+        }
+
+
+        .workflow-step {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            flex:
+                1;
+
+        }
+
+
+        .step-circle {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            min-width:
+                48px;
+
+            border-radius:
+                50%;
+
+            background:
+                #d8c8e9;
+
+            color:
+                var(--primary-dark);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                17px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .step-circle.active {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(99,54,168,0.12);
+
+        }
+
+
+        .step-text {
+
+            margin-left:
+                10px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--text-medium);
+
+        }
+
+
+        .step-text.active {
+
+            color:
+                var(--primary-dark);
+
+        }
+
+
+        .workflow-line {
+
+            height:
+                3px;
+
+            background:
+                #d4c7e5;
+
+            flex:
+                1;
+
+            margin:
+                0 14px;
+
+        }
+
+
+        /* =====================================================
+           PATIENT SUMMARY
+        ===================================================== */
+
+        .patient-summary {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                16px;
+
+            padding:
+                22px 25px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .patient-summary h2 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                18px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .patient-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                14px;
+
+        }
+
+
+        .patient-item {
+
+            padding:
+                13px;
+
+            background:
+                var(--purple-bg);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                10px;
+
+        }
+
+
+        .patient-item span {
+
+            display:
+                block;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .patient-item strong {
+
+            color:
+                var(--text-dark);
+
+            font-size:
+                14px;
+
+        }
+
+
+        /* =====================================================
+           AI ANALYSIS CARD
+        ===================================================== */
+
+        .analysis-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                20px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(56,36,80,0.08);
+
+            overflow:
+                hidden;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .analysis-header {
+
+            padding:
+                27px 30px;
+
+            border-bottom:
+                1px solid
+                #eee8f4;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+        }
+
+
+        .analysis-icon {
+
+            width:
+                54px;
+
+            height:
+                54px;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-light)
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                18px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .analysis-header h2 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                23px;
+
+            margin-bottom:
+                4px;
+
+        }
+
+
+        .analysis-header p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                13px;
+
+        }
+
+
+        .analysis-body {
+
+            padding:
+                28px 30px;
+
+        }
+
+
+        /* =====================================================
+           FEATURE GRID
+        ===================================================== */
+
+        .section-title {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                18px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .feature-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                15px;
+
+            margin-bottom:
+                28px;
+
+        }
+
+
+        .feature-card {
+
+            padding:
+                18px;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                13px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fbf9fd,
+                    #f5f0fa
+                );
+
+        }
+
+
+        .feature-card span {
+
+            display:
+                block;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .feature-card strong {
+
+            display:
+                block;
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                22px;
+
+            margin-bottom:
+                3px;
+
+        }
+
+
+        .feature-card small {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /* =====================================================
+           SECOND FEATURE GRID
+        ===================================================== */
+
+        .feature-grid-second {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                15px;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        /* =====================================================
+           RESULT PANEL
+        ===================================================== */
+
+        .result-panel {
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #1b1230,
+                    #28163b
+                );
+
+            border-radius:
+                17px;
+
+            padding:
+                25px;
+
+            color:
+                white;
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+        }
+
+
+        .result-panel::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                180px;
+
+            height:
+                180px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(144,95,198,0.10);
+
+            right:
+                -80px;
+
+            top:
+                -80px;
+
+        }
+
+
+        .result-header {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .result-header h2 {
+
+            font-size:
+                21px;
+
+        }
+
+
+        .demo-badge {
+
+            padding:
+                6px 10px;
+
+            border-radius:
+                20px;
+
+            background:
+                rgba(203,170,235,0.13);
+
+            border:
+                1px solid
+                rgba(203,170,235,0.18);
+
+            color:
+                #d5b9eb;
+
+            font-size:
+                10px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .result-content {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                20px;
+
+        }
+
+
+        .result-box {
+
+            padding:
+                20px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius:
+                12px;
+
+        }
+
+
+        .result-box span {
+
+            display:
+                block;
+
+            color:
+                #bcb1c9;
+
+            font-size:
+                11px;
+
+            margin-bottom:
+                7px;
+
+        }
+
+
+        .result-value {
+
+            font-size:
+                24px;
+
+            font-weight:
+                bold;
+
+            color:
+                #d6b7ef;
+
+        }
+
+
+        .result-description {
+
+            color:
+                #c8bfd1;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+
+            margin-top:
+                8px;
+
+        }
+
+
+        /* =====================================================
+           REFERENCE NOTE
+        ===================================================== */
+
+        .reference-note {
+
+            margin-top:
+                18px;
+
+            padding:
+                13px 15px;
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            color:
+                #bfb5ca;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           REPORT BUTTON
+        ===================================================== */
+
+        .continue-btn {
+
+            width:
+                100%;
+
+            margin-top:
+                25px;
+
+            padding:
+                15px;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+            font-size:
+                15px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .continue-btn:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #351b5d,
+                    #733cb6
+                );
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .feature-grid {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+
+            .feature-grid-second {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .top-bar {
+
+                padding:
+                    13px 18px;
+
+            }
+
+
+            .brand-text {
+
+                display:
+                    none;
+
+            }
+
+
+            .main-wrapper {
+
+                padding:
+                    28px 15px 40px;
+
+            }
+
+
+            .page-header h1 {
+
+                font-size:
+                    27px;
+
+            }
+
+
+            .workflow {
+
+                overflow-x:
+                    auto;
+
+            }
+
+
+            .workflow-step {
+
+                min-width:
+                    140px;
+
+            }
+
+
+            .workflow-line {
+
+                min-width:
+                    30px;
+
+            }
+
+
+            .patient-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .result-content {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .feature-grid,
+            .feature-grid-second {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .patient-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .analysis-body {
+
+                padding:
+                    22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         TOP BAR
+    ===================================================== -->
+
+    <header class="top-bar">
+
+
+        <div class="brand">
+
+
+            <div class="brand-icon">
+                OA
+            </div>
+
+
+            <div class="brand-text">
+
+                <h3>
+                    AI Healthcare Screening
+                </h3>
+
+                <span>
+                    North Eastern Region
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            onclick="window.location.href='wearable.html'"
+        >
+
+            ← Wearable Assessment
+
+        </button>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ===================================================== -->
+
+    <main class="main-wrapper">
+
+
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+
+            <div class="page-tag">
+
+                STEP 3 • AI RISK ANALYSIS
+
+            </div>
+
+
+            <h1>
+
+                AI Risk Analysis
+
+            </h1>
+
+
+            <p>
+
+                Analyse patient and wearable-derived
+                features to identify patterns relevant to
+                early osteoarthritis screening.
+
+            </p>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             WORKFLOW
+        ================================================= -->
+
+        <div class="workflow">
+
+
+            <div class="workflow-step">
+
+
+                <div class="step-circle">
+                    1
+                </div>
+
+
+                <div class="step-text">
+
+                    Patient<br>
+                    Details
+
+                </div>
+
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+
+                <div class="step-circle">
+                    2
+                </div>
+
+
+                <div class="step-text">
+
+                    Wearable<br>
+                    Assessment
+
+                </div>
+
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+
+                <div class="step-circle active">
+                    3
+                </div>
+
+
+                <div class="step-text active">
+
+                    AI Risk<br>
+                    Analysis
+
+                </div>
+
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+
+                <div class="step-circle">
+                    4
+                </div>
+
+
+                <div class="step-text">
+
+                    Screening<br>
+                    Report
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PATIENT SUMMARY
+        ================================================= -->
+
+        <section class="patient-summary">
+
+
+            <h2>
+                Patient Information
+            </h2>
+
+
+            <div class="patient-grid">
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Name
+                    </span>
+
+                    <strong id="patientName">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Age
+                    </span>
+
+                    <strong id="patientAge">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Height
+                    </span>
+
+                    <strong id="patientHeight">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Weight
+                    </span>
+
+                    <strong id="patientWeight">
+                        —
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             AI ANALYSIS
+        ================================================= -->
+
+        <section class="analysis-card">
+
+
+            <div class="analysis-header">
+
+
+                <div class="analysis-icon">
+                    AI
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Risk Analysis
+                    </h2>
+
+
+                    <p>
+                        Wearable-derived features used as
+                        screening inputs
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="analysis-body">
+
+
+                <!-- PRIMARY FEATURES -->
+
+                <h2 class="section-title">
+                    Biomechanical Features
+                </h2>
+
+
+                <div class="feature-grid">
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Peak Pressure
+                        </span>
+
+                        <strong>
+                            682
+                        </strong>
+
+                        <small>
+                            ADC counts
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Mean Pressure
+                        </span>
+
+                        <strong>
+                            438
+                        </strong>
+
+                        <small>
+                            ADC counts
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Pressure Balance
+                        </span>
+
+                        <strong>
+                            51 : 49
+                        </strong>
+
+                        <small>
+                            Left / Right
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Gait Symmetry
+                        </span>
+
+                        <strong>
+                            96%
+                        </strong>
+
+                        <small>
+                            Reference comparison
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- SECONDARY FEATURES -->
+
+                <h2 class="section-title">
+                    Mobility & Screening Inputs
+                </h2>
+
+
+                <div class="feature-grid-second">
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Stance Time
+                        </span>
+
+                        <strong>
+                            0.72 s
+                        </strong>
+
+                        <small>
+                            Average
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Step Duration
+                        </span>
+
+                        <strong>
+                            1.08 s
+                        </strong>
+
+                        <small>
+                            Average
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Pain Score
+                        </span>
+
+                        <strong>
+                            1 / 10
+                        </strong>
+
+                        <small>
+                            Patient-reported
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            Mobility Score
+                        </span>
+
+                        <strong>
+                            9 / 10
+                        </strong>
+
+                        <small>
+                            Screening input
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- RESULT -->
+
+                <div class="result-panel">
+
+
+                    <div class="result-header">
+
+
+                        <h2>
+                            Prototype Screening Output
+                        </h2>
+
+
+                        <span class="demo-badge">
+                            DEMO DATA
+                        </span>
+
+
+                    </div>
+
+
+                    <div class="result-content">
+
+
+                        <div class="result-box">
+
+
+                            <span>
+                                Reference Pattern
+                            </span>
+
+
+                            <div class="result-value">
+                                Low-Risk Pattern
+                            </div>
+
+
+                            <div class="result-description">
+
+                                The displayed measurements
+                                are consistent with the
+                                healthy reference dataset
+                                used for this prototype.
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="result-box">
+
+
+                            <span>
+                                AI Pipeline Status
+                            </span>
+
+
+                            <div class="result-value">
+                                Ready for Model
+                            </div>
+
+
+                            <div class="result-description">
+
+                                Extracted features can be
+                                passed to the trained ML
+                                classifier once integrated.
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="reference-note">
+
+                        <strong>
+                            Prototype note:
+                        </strong>
+
+                        Values shown on this page are
+                        demonstration/reference values for a
+                        healthy-pattern scenario. They are not
+                        clinical measurements and do not
+                        constitute a medical diagnosis.
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- REPORT -->
+
+                <button
+                    class="continue-btn"
+                    onclick="continueToReport()"
+                >
+
+                    Continue to Screening Report
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+
+        /* =====================================================
+           LOAD PATIENT DATA
+        ===================================================== */
+
+        const savedData =
+            localStorage.getItem(
+                "patientData"
+            );
+
+
+        if (!savedData) {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        const patientData =
+            JSON.parse(
+                savedData
+            );
+
+
+        document.getElementById(
+            "patientName"
+        ).textContent =
+            patientData.name || "Demo Patient";
+
+
+        document.getElementById(
+            "patientAge"
+        ).textContent =
+            patientData.age || "—";
+
+
+        document.getElementById(
+            "patientHeight"
+        ).textContent =
+            patientData.height
+                ? patientData.height + " cm"
+                : "—";
+
+
+        document.getElementById(
+            "patientWeight"
+        ).textContent =
+            patientData.weight
+                ? patientData.weight + " kg"
+                : "—";
+
+
+
+        /* =====================================================
+           NEXT PAGE
+        ===================================================== */
+
+        function continueToReport() {
+
+            window.location.href =
+                "report.html";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

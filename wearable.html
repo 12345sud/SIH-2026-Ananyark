@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wearable Assessment
+    </title>
+
+
+    <style>
+
+        :root {
+
+            --primary: #6336a8;
+            --primary-dark: #422273;
+            --primary-light: #8d5cc7;
+
+            --purple-bg: #f5f1fa;
+            --purple-soft: #eee7f8;
+            --purple-border: #ddd2ee;
+
+            --dark-purple: #171027;
+            --dark-purple-2: #211631;
+
+            --text-dark: #29223d;
+            --text-medium: #635b73;
+            --text-light: #968da5;
+
+            --white: #ffffff;
+
+        }
+
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            color:
+                var(--text-dark);
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 0%,
+                    #e8ddf5 0%,
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 90% 15%,
+                    #eee5f8 0%,
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #f7f4fb,
+                    #eee9f5
+                );
+
+        }
+
+
+        /* ================= TOP BAR ================= */
+
+        .top-bar {
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,0.92);
+
+            border-bottom:
+                1px solid
+                var(--purple-border);
+
+            padding:
+                14px 40px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .brand-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-light)
+                );
+
+            color:
+                white;
+
+            border-radius:
+                11px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-weight:
+                bold;
+
+            box-shadow:
+                0 5px 14px
+                rgba(99,54,168,0.23);
+
+        }
+
+
+        .brand-text h3 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                16px;
+
+        }
+
+
+        .brand-text span {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .back-btn {
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            background:
+                white;
+
+            color:
+                var(--primary-dark);
+
+            border-radius:
+                8px;
+
+            padding:
+                9px 15px;
+
+            font-size:
+                13px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .back-btn:hover {
+
+            background:
+                var(--purple-soft);
+
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .main-wrapper {
+
+            max-width:
+                1100px;
+
+            margin:
+                0 auto;
+
+            padding:
+                40px 25px 60px;
+
+        }
+
+
+        .page-header {
+
+            text-align:
+                center;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .page-tag {
+
+            display:
+                inline-block;
+
+            padding:
+                7px 15px;
+
+            background:
+                var(--purple-soft);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                20px;
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                12px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                14px;
+
+        }
+
+
+        .page-header h1 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                34px;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        .page-header p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                14px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /* ================= WORKFLOW ================= */
+
+        .workflow {
+
+            width:
+                100%;
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                17px;
+
+            padding:
+                22px 25px;
+
+            margin-bottom:
+                30px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+        }
+
+
+        .workflow-step {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            flex:
+                1;
+
+        }
+
+
+        .step-circle {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            min-width:
+                48px;
+
+            border-radius:
+                50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-weight:
+                bold;
+
+            font-size:
+                17px;
+
+        }
+
+
+        .step-circle.active {
+
+            box-shadow:
+                0 0 0 5px
+                rgba(99,54,168,0.13);
+
+        }
+
+
+        .step-text {
+
+            margin-left:
+                10px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--primary-dark);
+
+        }
+
+
+        .workflow-line {
+
+            height:
+                3px;
+
+            background:
+                #d4c7e5;
+
+            flex:
+                1;
+
+            margin:
+                0 14px;
+
+        }
+
+
+        /* ================= PATIENT SUMMARY ================= */
+
+        .patient-summary {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                16px;
+
+            padding:
+                22px 25px;
+
+            margin-bottom:
+                24px;
+
+        }
+
+
+        .patient-summary h2 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                18px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .patient-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                14px;
+
+        }
+
+
+        .patient-item {
+
+            padding:
+                13px;
+
+            background:
+                var(--purple-bg);
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                10px;
+
+        }
+
+
+        .patient-item span {
+
+            display:
+                block;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .patient-item strong {
+
+            color:
+                var(--text-dark);
+
+            font-size:
+                14px;
+
+        }
+
+
+        /* ================= ASSESSMENT CARD ================= */
+
+        .assessment-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                20px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(56,36,80,0.08);
+
+            padding:
+                30px;
+
+        }
+
+
+        .assessment-header {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            margin-bottom:
+                26px;
+
+        }
+
+
+        .assessment-icon {
+
+            width:
+                54px;
+
+            height:
+                54px;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--primary-light)
+                );
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                21px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .assessment-header h2 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                24px;
+
+            margin-bottom:
+                4px;
+
+        }
+
+
+        .assessment-header p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                13px;
+
+        }
+
+
+        /* ================= SENSOR CARDS ================= */
+
+        .sensor-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:
+                18px;
+
+        }
+
+
+        .sensor-card {
+
+            padding:
+                22px;
+
+            border:
+                1px solid
+                var(--purple-border);
+
+            border-radius:
+                15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fbf9fd,
+                    #f5f0fa
+                );
+
+        }
+
+
+        .sensor-number {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            border-radius:
+                10px;
+
+            background:
+                var(--purple-soft);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                12px;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                17px;
+
+        }
+
+
+        .sensor-card h3 {
+
+            color:
+                var(--primary-dark);
+
+            font-size:
+                17px;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .sensor-card p {
+
+            color:
+                var(--text-medium);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.5;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .sensor-status {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                20px;
+
+            background:
+                #f1eaf8;
+
+            color:
+                var(--primary);
+
+            font-size:
+                11px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .sensor-dot {
+
+            width:
+                7px;
+
+            height:
+                7px;
+
+            border-radius:
+                50%;
+
+            background:
+                #a277d1;
+
+        }
+
+
+        /* ================= START BUTTON ================= */
+
+        .start-section {
+
+            margin-top:
+                25px;
+
+            padding-top:
+                25px;
+
+            border-top:
+                1px solid
+                #eee8f4;
+
+            text-align:
+                center;
+
+        }
+
+
+        .start-btn {
+
+            width:
+                100%;
+
+            padding:
+                15px;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color:
+                white;
+
+            font-weight:
+                bold;
+
+            font-size:
+                15px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .start-btn:hover {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #351b5d,
+                    #733cb6
+                );
+
+        }
+
+
+        .start-note {
+
+            margin-top:
+                10px;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .patient-grid {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+
+            .sensor-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .top-bar {
+
+                padding:
+                    13px 18px;
+
+            }
+
+
+            .brand-text {
+
+                display:
+                    none;
+
+            }
+
+
+            .main-wrapper {
+
+                padding:
+                    28px 15px 40px;
+
+            }
+
+
+            .page-header h1 {
+
+                font-size:
+                    27px;
+
+            }
+
+
+            .workflow {
+
+                overflow-x:
+                    auto;
+
+            }
+
+
+            .workflow-step {
+
+                min-width:
+                    140px;
+
+            }
+
+
+            .workflow-line {
+
+                min-width:
+                    30px;
+
+            }
+
+
+            .patient-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .assessment-card {
+
+                padding:
+                    22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- TOP BAR -->
+
+    <header class="top-bar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                OA
+            </div>
+
+
+            <div class="brand-text">
+
+                <h3>
+                    AI Healthcare Screening
+                </h3>
+
+                <span>
+                    North Eastern Region
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            onclick="window.location.href='index.html'"
+        >
+            ← Patient Details
+        </button>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main-wrapper">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="page-header">
+
+            <div class="page-tag">
+                STEP 2 • WEARABLE ASSESSMENT
+            </div>
+
+
+            <h1>
+                Wearable Assessment
+            </h1>
+
+
+            <p>
+                Connect and assess wearable sensor data
+                to evaluate gait, posture, movement and
+                foot-pressure patterns.
+            </p>
+
+        </section>
+
+
+
+        <!-- WORKFLOW -->
+
+        <div class="workflow">
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    1
+                </div>
+
+                <div class="step-text">
+                    Patient<br>
+                    Details
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle active">
+                    2
+                </div>
+
+                <div class="step-text">
+                    Wearable<br>
+                    Assessment
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    3
+                </div>
+
+                <div class="step-text">
+                    AI Risk<br>
+                    Analysis
+                </div>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-circle">
+                    4
+                </div>
+
+                <div class="step-text">
+                    Screening<br>
+                    Report
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PATIENT SUMMARY -->
+
+        <section class="patient-summary">
+
+            <h2>
+                Patient Information
+            </h2>
+
+
+            <div class="patient-grid">
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Name
+                    </span>
+
+                    <strong id="patientName">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Age
+                    </span>
+
+                    <strong id="patientAge">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Height
+                    </span>
+
+                    <strong id="patientHeight">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="patient-item">
+
+                    <span>
+                        Weight
+                    </span>
+
+                    <strong id="patientWeight">
+                        —
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ASSESSMENT -->
+
+        <section class="assessment-card">
+
+
+            <div class="assessment-header">
+
+                <div class="assessment-icon">
+                    W
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Wearable Sensor Assessment
+                    </h2>
+
+
+                    <p>
+                        Prepare the wearable system before
+                        beginning the assessment.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SENSOR CARDS -->
+
+            <div class="sensor-grid">
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-number">
+                        01
+                    </div>
+
+
+                    <h3>
+                        Foot Pressure
+                    </h3>
+
+
+                    <p>
+                        Collect plantar pressure data
+                        from the wearable pressure sensors
+                        during standing and walking.
+                    </p>
+
+
+                    <div class="sensor-status">
+
+                        <span class="sensor-dot"></span>
+
+                        Sensor Ready
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-number">
+                        02
+                    </div>
+
+
+                    <h3>
+                        Gait Analysis
+                    </h3>
+
+
+                    <p>
+                        Analyse walking patterns,
+                        weight distribution and
+                        movement characteristics.
+                    </p>
+
+
+                    <div class="sensor-status">
+
+                        <span class="sensor-dot"></span>
+
+                        Ready for Assessment
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="sensor-card">
+
+                    <div class="sensor-number">
+                        03
+                    </div>
+
+
+                    <h3>
+                        Movement & Posture
+                    </h3>
+
+
+                    <p>
+                        Capture movement and posture
+                        information for subsequent
+                        AI-assisted risk analysis.
+                    </p>
+
+
+                    <div class="sensor-status">
+
+                        <span class="sensor-dot"></span>
+
+                        System Ready
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- START -->
+
+            <div class="start-section">
+
+
+                <button
+                    class="start-btn"
+                    onclick="startAssessment()"
+                >
+
+                    Start Wearable Assessment
+
+                </button>
+
+
+                <div class="start-note">
+
+                    Ensure the wearable device is properly
+                    positioned before starting.
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+        /* ==============================================
+           LOAD PATIENT DATA
+        ============================================== */
+
+        const savedData =
+            localStorage.getItem(
+                "patientData"
+            );
+
+
+        if (!savedData) {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        const patientData =
+            JSON.parse(savedData);
+
+
+        document.getElementById(
+            "patientName"
+        ).textContent =
+            patientData.name || "—";
+
+
+        document.getElementById(
+            "patientAge"
+        ).textContent =
+            patientData.age || "—";
+
+
+        document.getElementById(
+            "patientHeight"
+        ).textContent =
+            patientData.height
+                ? patientData.height + " cm"
+                : "—";
+
+
+        document.getElementById(
+            "patientWeight"
+        ).textContent =
+            patientData.weight
+                ? patientData.weight + " kg"
+                : "—";
+
+
+
+        /* ==============================================
+           START ASSESSMENT
+        ============================================== */
+
+        function startAssessment() {
+
+    window.location.href = "risk-analysis.html";
+
+
+
+            /*
+                Later you can replace this alert
+                with your actual Arduino /
+                sensor connection logic.
+            */
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
